@@ -1,7 +1,8 @@
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.omg.PortableInterceptor.INACTIVE;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
@@ -21,12 +22,26 @@ public class Runner {
         ArrayList arrayList = TaskLists.removeDuplicates(list1);
         System.out.println("Removind duplicates...");
         TaskLists.printList(arrayList);
-        List<String> listString = Arrays.asList("ala", "ma", "kota", "ale","nie","ma","psa");
+        List<String> listString = Arrays.asList("ala", "ma", "kota", "ale", "nie", "ma", "psa");
         //System.out.println(TaskLists.concatenateStrings(listString));
         //List prefixList = TaskLists.filterByPrefix(listString, "al");
-        List prefixList  = TaskLists.filterBySuffix(listString,"ma");
+        List prefixList = TaskLists.filterBySuffix(listString, "ma");
         //System.out.println(TaskLists.concatenateStrings(prefixList));
 
+        List<String> listLevel =
+                new ArrayList<>(Arrays.asList("Level-01 Ala", "Level-01 Ola", "Level-11 Michał", "Level-02 Ala","Level-10 Ala"));
+        HashMap<Integer, ArrayList> map = (HashMap<Integer, ArrayList>)TaskLists.groupByLevelValue(listLevel);
+        for (Map.Entry<Integer, ArrayList> entry : map.entrySet()) {
+            Integer key = entry.getKey();
+            ArrayList value = entry.getValue();
+            System.out.println(key + ":" + value);
+        }
+
+        List listOfValues = TasksMaps.flattenPreserveDuplicates(map);
+        System.out.println(listOfValues);
+
+        List listOfValuesNoDuplicates = TasksMaps.flattenPreserveDuplicates(map);
+        System.out.println(listOfValuesNoDuplicates);
 
     }
 }
